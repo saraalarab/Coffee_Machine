@@ -1,0 +1,5 @@
+int32 check_type
+string coffee_type
+---
+string quantity
+

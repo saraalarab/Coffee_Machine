@@ -1,0 +1,8 @@
+prefix=/home/sara/catkin_ws/install
+
+Name: coffeemachine
+Description: Description of coffeemachine
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lcoffeemachine
+Requires: 

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+    <span class="w3-tag">Open from 6am to 5pm</span>
+  </div>
+  
+  <div class="w3-display-bottomright w3-center w3-padding-large">
+    <span class="w3-text-white">15 Adr street, 5015</span>
+  </div>
+</header>
+
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-sand w3-grayscale w3-large">
+
+
+
+<!-- Menu Container -->
+<div class="w3-container" id="menu">
+  <div class="w3-content" style="max-width:700px">
+ 
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">THE MENU</span></h5>
+  
+    <div class="w3-row w3-card w3-center w3-padding">
+
+        <a class="cup" href="javascript:void(0)" onclick="openMenu(event, 'Cup');" id="myLink">
+            <div class=" s6 tablink">Cup</div>
+        </a>
+
+      <a class="drink" href="javascript:void(0)" onclick="openMenu(event, 'Drinks');">
+        <div class=" s6 tablink">Drink</div>
+      </a>
+
+     
+    </div>
+
+    <div id="Cup" class="w3-container w3-center menu w3-padding cup">
+
+        <input type="button" class="cup_type"  value="machine_cup" name="Machine Cup">
+            
+        <input type="button" class="cup_type"  value="my_cup" name="My Cup">
+        
+    </div> 
+
+
+    <div id="Drinks" class="w3-container w3-center menu w3-padding drink">
+
+    <input type="button" class="coffee_type"  value="Expresso">
+      <p class="w3-text-grey">2.50</p><br>
+    	
+    <input type="button" class="coffee_type"  value="Latte">
+      <p class="w3-text-grey">4.50</p><br>
+
+    <input type="button" class="coffee_type"  value="Cuppiccino">
+      <p class="w3-text-grey">5.00</p><br>
+
+      <div>
+        <label for="milk-select">Milk</label>
+
+        <select name="milk" id="milk-select">
+            <option value="high">high</option>
+            <option value="low">low</option>
+        </select>
+
+      </div>
+
+      <div>
+        <label for="sugar-select">Sugar</label>
+
+        <select name="sugar" id="sugar-select" >
+            <option value="high">high</option>
+            <option value="low">low</option>
+        </select>
+
+      </div>
+      
+    </div> 
+
+    <div>
+        <input type="button" id="pay" value="Pay" style="background-color: green; color: white; margin-left:40%; margin-top: 20%; width:100px;">
+    </div>
+    
+    <img src="../static/images/Central_Perk.jpg" style="width:100%;max-width:1000px;margin-top:32px;">
+  </div>
+</div>
+
+
+
+<script >
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+
+
+$(".cup_type").on("click",function(e){
+
+$(".cup").hide()
+$(".drink").show()
+$('#pay').hide()
+console.log(e.target.value)
+
+
+socket.emit('cup_type',e.target.value)
+})
+
+$(".coffee_type").on("click",function(e){
+
+$(".cup").hide()
+$(".drink").hide()
+$('#pay').show()
+var milk_level = $('#milk-select').find(":selected").text();
+var sugar_level = $('#sugar-select').find(":selected").text();
+var coffee_type = e.target.value
+
+console.log(coffee_type)
+console.log(milk_level)
+console.log(sugar_level)
+
+
+socket.emit('coffee_type',{coffee_type,milk_level,sugar_level})
+
+
+})
+
+
+$("#pay").on("click",function(){
+
+$(".cup").hide()
+$(".drink").hide()
+$('#pay').hide()
+
+socket.emit('pay','successful')
+})
+
+
+</script>
+
+
+{% endblock %}

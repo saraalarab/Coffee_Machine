@@ -1,0 +1,17 @@
+coffee_machine:
+  quantity:
+    cups: 10
+    coffee: 
+      Latte: 10
+      Cuppiccino: 10
+      Expresso: 10
+    milk: 10
+    sugar: 10
+  user:
+    cup_type: machine_cup
+    coffee_type: Latte
+    milk: High
+    sugar: Low
+    payment: unsuccessful
+  ui_action: 0
+

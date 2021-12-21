@@ -1,0 +1,5 @@
+<launch>
+
+ <node name="user_interface_node" pkg="user_interface" type="routes.py" output="screen"/> 
+
+</launch>

@@ -1,0 +1,8 @@
+<launch>
+
+
+<node name="state_machine" pkg="coffeemachine" type="transitions.py" output="screen"/>
+
+<rosparam command="load" file="$(find coffeemachine)/include/params.yaml"/>
+
+</launch>
